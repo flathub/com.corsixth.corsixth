@@ -95,10 +95,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.65-beta1
-        commit: f160b80ac49fae5966284dd617a85f0bbce147f1
-      - type: patch
-        path: corsixth-releases-order.patch
+        tag: v0.65-beta2
+        commit: cc79e3e9ade7c39aa24591ff3f6ec84557456775
 
 cleanup:
   - /bin/ff*
