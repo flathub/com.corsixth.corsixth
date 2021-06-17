@@ -95,8 +95,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.65-beta2
-        commit: cc79e3e9ade7c39aa24591ff3f6ec84557456775
+        tag: v0.65
+        commit: ab7678bf456e4a943300d3c423f0a44c1f025f1e
 
 cleanup:
   - /bin/ff*
