@@ -15,7 +15,7 @@ finish-args:
   # OpenGL access
   - --device=dri
   # Lua modules
-  - --env=LUA_CPATH=./?.so;/app/lib/lua/5.3/?.so;/app/share/lua/5.3/?.so
+  - --env=LUA_CPATH=./?.so;/app/lib/lua/5.4/?.so;/app/share/lua/5.4/?.so
   # Tell SDL_mixer where to find Timidity config
   - --env=TIMIDITY_CFG=/app/share/timidity/timidity.cfg
 
@@ -27,8 +27,8 @@ modules:
       - make linux install INSTALL_TOP=${FLATPAK_DEST}
     sources:
       - type: archive
-        url: https://www.lua.org/ftp/lua-5.3.6.tar.gz
-        sha256: fc5fd69bb8736323f026672b1b7235da613d7177e72558893a0bdcd320466d60
+        url: https://www.lua.org/ftp/lua-5.4.3.tar.gz
+        sha256: f8612276169e3bfcbcfb8f226195bfc6e466fe13042f1076cbde92b7ec96bbfb
       - type: patch
         path: lua-so.patch
 
@@ -37,8 +37,8 @@ modules:
     build-options:
       cflags: -fPIC
     build-commands:
-      - make PREFIX=${FLATPAK_DEST} LUA_VERSION=5.3
-      - make install PREFIX=${FLATPAK_DEST} LUA_VERSION=5.3
+      - make PREFIX=${FLATPAK_DEST} LUA_VERSION=5.4
+      - make install PREFIX=${FLATPAK_DEST} LUA_VERSION=5.4
     sources:
       - type: git
         url: https://github.com/keplerproject/luafilesystem.git
@@ -49,7 +49,7 @@ modules:
     buildsystem: simple
     build-commands:
       - make linux
-      - cp lpeg.so ${FLATPAK_DEST}/lib/lua/5.3/
+      - cp lpeg.so ${FLATPAK_DEST}/lib/lua/5.4/
     sources:
       - type: archive
         url: http://www.inf.puc-rio.br/~roberto/lpeg/lpeg-1.0.2.tar.gz
@@ -95,8 +95,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.65-beta2
-        commit: cc79e3e9ade7c39aa24591ff3f6ec84557456775
+        tag: v0.65
+        commit: ab7678bf456e4a943300d3c423f0a44c1f025f1e
 
 cleanup:
   - /bin/ff*
