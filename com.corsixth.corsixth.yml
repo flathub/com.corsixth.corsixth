@@ -1,13 +1,14 @@
 app-id: com.corsixth.corsixth
 runtime: org.freedesktop.Platform
-runtime-version: '20.08'
+runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 command: corsix-th
 rename-icon: corsix-th
 finish-args:
-  # X11 + XShm access
+  - --socket=wayland
+  - --socket=fallback-x11
+  # XShm access
   - --share=ipc
-  - --socket=x11
   # Pulseaudio access
   - --socket=pulseaudio
   # Filesystem access - for game files
@@ -20,75 +21,6 @@ finish-args:
   - --env=TIMIDITY_CFG=/app/share/timidity/timidity.cfg
 
 modules:
-
-  - name: Lua
-    buildsystem: simple
-    build-commands:
-      - make linux install INSTALL_TOP=${FLATPAK_DEST}
-    sources:
-      - type: archive
-        url: https://www.lua.org/ftp/lua-5.4.3.tar.gz
-        sha256: f8612276169e3bfcbcfb8f226195bfc6e466fe13042f1076cbde92b7ec96bbfb
-      - type: patch
-        path: lua-so.patch
-
-  - name: LuaFileSystem
-    buildsystem: simple
-    build-options:
-      cflags: -fPIC
-    build-commands:
-      - make PREFIX=${FLATPAK_DEST} LUA_VERSION=5.4
-      - make install PREFIX=${FLATPAK_DEST} LUA_VERSION=5.4
-    sources:
-      - type: git
-        url: https://github.com/keplerproject/luafilesystem.git
-        tag: v1_8_0
-        commit: 7c6e1b013caec0602ca4796df3b1d7253a2dd258
-
-  - name: LPeg
-    buildsystem: simple
-    build-commands:
-      - make linux
-      - cp lpeg.so ${FLATPAK_DEST}/lib/lua/5.4/
-    sources:
-      - type: archive
-        url: http://www.inf.puc-rio.br/~roberto/lpeg/lpeg-1.0.2.tar.gz
-        sha256: 48d66576051b6c78388faad09b70493093264588fcd0f258ddaab1cdd4a15ffe
-
-  - name: freepats
-    buildsystem: simple
-    build-commands:
-      - install -d $FLATPAK_DEST/share/freepats/{Drum,Tone}_000
-      - install -m644 Drum_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Drum_000
-      - install -m644 Tone_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Tone_000
-      - install -m644 crude.cfg $FLATPAK_DEST/share/freepats/freepats.cfg
-      - install -d $FLATPAK_DEST/share/timidity
-      - install -m644 timidity.cfg $FLATPAK_DEST/share/timidity/timidity.cfg
-    sources:
-      - type: archive
-        url: https://freepats.zenvoid.org/freepats-20060219.tar.xz
-        sha256: 500c61782ff4b22de6887c0a32e68dd98b511c4396ddf89e8cab482c7dcea89e
-      - type: file
-        path: timidity.cfg
-
-  - name: ffmpeg
-    buildsystem: autotools
-    config-opts:
-      - --disable-doc
-      - --disable-static
-      - --enable-shared
-      - --enable-optimizations
-      - --disable-everything
-      - --enable-decoder=smacker
-      - --enable-decoder=smackaud
-      - --enable-demuxer=smacker
-      - --enable-protocol=file
-    sources:
-      - type: git
-        url: https://git.ffmpeg.org/ffmpeg.git
-        tag: n4.4
-        commit: dc91b913b6260e85e1304c74ff7bb3c22a8c9fb1
-
   - name: CorsixTH
     buildsystem: cmake
     builddir: true
@@ -97,16 +29,107 @@ modules:
         url: https://github.com/CorsixTH/CorsixTH.git
         tag: v0.65.1
         commit: 6ad40025280d4d08c6b1404ca2843c4738546056
+      - type: patch
+        path: corsixth-new-screenshot-urls.patch
+    modules:
+      - name: Lua
+        buildsystem: simple
+        build-commands:
+          - make linux install INSTALL_TOP=${FLATPAK_DEST}
+        sources:
+          - type: archive
+            url: https://www.lua.org/ftp/lua-5.4.3.tar.gz
+            sha256: f8612276169e3bfcbcfb8f226195bfc6e466fe13042f1076cbde92b7ec96bbfb
+          - type: patch
+            path: lua-so.patch
+        cleanup:
+          - /bin/lua*
+
+      - name: LuaFileSystem
+        buildsystem: simple
+        build-options:
+          cflags: -fPIC
+        build-commands:
+          - make PREFIX=${FLATPAK_DEST} LUA_VERSION=5.4
+          - make install PREFIX=${FLATPAK_DEST} LUA_VERSION=5.4
+        sources:
+          - type: git
+            url: https://github.com/keplerproject/luafilesystem.git
+            tag: v1_8_0
+            commit: 7c6e1b013caec0602ca4796df3b1d7253a2dd258
+
+      - name: LPeg
+        buildsystem: simple
+        build-commands:
+          - make linux
+          - cp lpeg.so ${FLATPAK_DEST}/lib/lua/5.4/
+        sources:
+          - type: archive
+            url: http://www.inf.puc-rio.br/~roberto/lpeg/lpeg-1.0.2.tar.gz
+            sha256: 48d66576051b6c78388faad09b70493093264588fcd0f258ddaab1cdd4a15ffe
+
+      - name: freepats
+        buildsystem: simple
+        build-commands:
+          - install -d $FLATPAK_DEST/share/freepats/{Drum,Tone}_000
+          - install -m644 Drum_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Drum_000
+          - install -m644 Tone_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Tone_000
+          - install -m644 crude.cfg $FLATPAK_DEST/share/freepats/freepats.cfg
+          - install -d $FLATPAK_DEST/share/timidity
+          - install -m644 timidity.cfg $FLATPAK_DEST/share/timidity/timidity.cfg
+        sources:
+          - type: archive
+            url: https://freepats.zenvoid.org/freepats-20060219.tar.xz
+            sha256: 500c61782ff4b22de6887c0a32e68dd98b511c4396ddf89e8cab482c7dcea89e
+          - type: file
+            path: timidity.cfg
+
+      - name: ffmpeg
+        buildsystem: autotools
+        config-opts:
+          - --disable-doc
+          - --disable-static
+          - --enable-shared
+          - --enable-optimizations
+          - --disable-everything
+          - --enable-decoder=smacker
+          - --enable-decoder=smackaud
+          - --enable-demuxer=smacker
+          - --enable-protocol=file
+        sources:
+          - type: git
+            url: https://git.ffmpeg.org/ffmpeg.git
+            tag: n4.4
+            commit: dc91b913b6260e85e1304c74ff7bb3c22a8c9fb1
+        cleanup:
+          - /bin/ff*
+          - /share/ffmpeg
+
+      - name: SDL2
+        buildsystem: autotools
+        sources:
+          - type: git
+            url: https://github.com/libsdl-org/SDL.git
+            tag: release-2.0.16
+            commit: 25f9ed87ff6947d9576fc9d79dee0784e638ac58
+        cleanup:
+          - /bin/sdl2*
+        modules:
+          - name: libdecor
+            buildsystem: meson
+            config-opts:
+              - -Ddemo=false
+            sources:
+              - type: git
+                url: https://gitlab.gnome.org/jadahl/libdecor.git
+                tag: 0.1.0
+                commit: 3ec3fadd59a21835079fbb3046d2bec6c649d6fa
 
 cleanup:
-  - /bin/ff*
-  - /bin/lua*
   - /include
   - /lib/pkgconfig
   - /lib/cmake
   - /man
   - /share/man
-  - /share/cmake
-  - /share/ffmpeg
   - '*.a'
   - '*.la'
