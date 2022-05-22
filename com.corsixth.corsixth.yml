@@ -27,10 +27,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.65.1
-        commit: 6ad40025280d4d08c6b1404ca2843c4738546056
-      - type: patch
-        path: corsixth-new-screenshot-urls.patch
+        tag: v0.66-beta1
+        commit: 6e3ec4fe24edacaa08ebf9056a4c1c508075a13f
     modules:
       - name: Lua
         buildsystem: simple
@@ -38,8 +36,8 @@ modules:
           - make linux install INSTALL_TOP=${FLATPAK_DEST}
         sources:
           - type: archive
-            url: https://www.lua.org/ftp/lua-5.4.3.tar.gz
-            sha256: f8612276169e3bfcbcfb8f226195bfc6e466fe13042f1076cbde92b7ec96bbfb
+            url: https://www.lua.org/ftp/lua-5.4.4.tar.gz
+            sha256: 164c7849653b80ae67bec4b7473b884bf5cc8d2dca05653475ec2ed27b9ebf61
           - type: patch
             path: lua-so.patch
         cleanup:
@@ -99,8 +97,8 @@ modules:
         sources:
           - type: git
             url: https://git.ffmpeg.org/ffmpeg.git
-            tag: n4.4
-            commit: dc91b913b6260e85e1304c74ff7bb3c22a8c9fb1
+            tag: n4.4.2
+            commit: d61977cbe453869cec28d32b71fe25c2cd965dcf
         cleanup:
           - /bin/ff*
           - /share/ffmpeg
@@ -110,8 +108,8 @@ modules:
         sources:
           - type: git
             url: https://github.com/libsdl-org/SDL.git
-            tag: release-2.0.16
-            commit: 25f9ed87ff6947d9576fc9d79dee0784e638ac58
+            tag: release-2.0.22
+            commit: 53dea9830964eee8b5c2a7ee0a65d6e268dc78a1
         cleanup:
           - /bin/sdl2*
         modules:
