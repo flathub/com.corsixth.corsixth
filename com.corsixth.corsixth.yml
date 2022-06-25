@@ -27,10 +27,12 @@ modules:
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.65.1
-        commit: 6ad40025280d4d08c6b1404ca2843c4738546056
-      - type: patch
-        path: corsixth-new-screenshot-urls.patch
+        tag: v0.66
+        commit: 430bd52a2ce274d37e3550c17cfe3985363cfee5
+        x-checker-data:
+          type: git
+          tag-pattern: ^v([\d.]+)$
+
     modules:
       - name: Lua
         buildsystem: simple
@@ -38,8 +40,13 @@ modules:
           - make linux install INSTALL_TOP=${FLATPAK_DEST}
         sources:
           - type: archive
-            url: https://www.lua.org/ftp/lua-5.4.3.tar.gz
-            sha256: f8612276169e3bfcbcfb8f226195bfc6e466fe13042f1076cbde92b7ec96bbfb
+            url: https://www.lua.org/ftp/lua-5.4.4.tar.gz
+            sha256: 164c7849653b80ae67bec4b7473b884bf5cc8d2dca05653475ec2ed27b9ebf61
+            x-checker-data:
+              type: html
+              url: https://www.lua.org/download.html
+              version-pattern: lua-([\d.]+).tar.gz
+              url-template: https://www.lua.org/ftp/lua-$version.tar.gz
           - type: patch
             path: lua-so.patch
         cleanup:
@@ -57,6 +64,10 @@ modules:
             url: https://github.com/keplerproject/luafilesystem.git
             tag: v1_8_0
             commit: 7c6e1b013caec0602ca4796df3b1d7253a2dd258
+            x-checker-data:
+              type: git
+              tag-pattern: ^v[^_]([\d_]+)$
+              sort-tags: false
 
       - name: LPeg
         buildsystem: simple
@@ -67,6 +78,10 @@ modules:
           - type: archive
             url: http://www.inf.puc-rio.br/~roberto/lpeg/lpeg-1.0.2.tar.gz
             sha256: 48d66576051b6c78388faad09b70493093264588fcd0f258ddaab1cdd4a15ffe
+            x-checker-data:
+              type: html
+              url: http://www.inf.puc-rio.br/~roberto/lpeg/
+              pattern: (http://www.inf.puc-rio.br/~roberto/lpeg/lpeg-([\d.]+).tar.gz)
 
       - name: freepats
         buildsystem: simple
@@ -99,8 +114,13 @@ modules:
         sources:
           - type: git
             url: https://git.ffmpeg.org/ffmpeg.git
-            tag: n4.4
-            commit: dc91b913b6260e85e1304c74ff7bb3c22a8c9fb1
+            tag: n4.4.2
+            commit: d61977cbe453869cec28d32b71fe25c2cd965dcf
+            x-checker-data:
+              type: git
+              tag-pattern: ^n([\d.]+)$
+              versions:
+                "<": "4.5"
         cleanup:
           - /bin/ff*
           - /share/ffmpeg
@@ -110,8 +130,11 @@ modules:
         sources:
           - type: git
             url: https://github.com/libsdl-org/SDL.git
-            tag: release-2.0.16
-            commit: 25f9ed87ff6947d9576fc9d79dee0784e638ac58
+            tag: release-2.0.22
+            commit: 53dea9830964eee8b5c2a7ee0a65d6e268dc78a1
+            x-checker-data:
+              type: git
+              tag-pattern: ^release-([\d.]+)$
         cleanup:
           - /bin/sdl2*
         modules:
@@ -124,6 +147,9 @@ modules:
                 url: https://gitlab.gnome.org/jadahl/libdecor.git
                 tag: 0.1.0
                 commit: 3ec3fadd59a21835079fbb3046d2bec6c649d6fa
+                x-checker-data:
+                  type: git
+                  tag-pattern: ^([\d.]+)$
 
 cleanup:
   - /include
