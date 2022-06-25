@@ -27,8 +27,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.66-rc1
-        commit: f5ff0603abc367f058a800ca368d2d4770fac0ab
+        tag: v0.66
+        commit: 430bd52a2ce274d37e3550c17cfe3985363cfee5
     modules:
       - name: Lua
         buildsystem: simple
