@@ -120,7 +120,7 @@ modules:
               type: git
               tag-pattern: ^n([\d.]+)$
               versions:
-                "<": "4.5"
+                <: '4.5'
         cleanup:
           - /bin/ff*
           - /share/ffmpeg
@@ -130,8 +130,8 @@ modules:
         sources:
           - type: git
             url: https://github.com/libsdl-org/SDL.git
-            tag: release-2.0.22
-            commit: 53dea9830964eee8b5c2a7ee0a65d6e268dc78a1
+            tag: release-2.24.0
+            commit: 8c9beb0c873f6ca5efbd88f1ad2648bfc793b2ac
             x-checker-data:
               type: git
               tag-pattern: ^release-([\d.]+)$
