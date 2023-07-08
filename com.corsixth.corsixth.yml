@@ -1,12 +1,11 @@
 app-id: com.corsixth.corsixth
 runtime: org.freedesktop.Platform
-runtime-version: '21.08'
+runtime-version: '22.08'
 sdk: org.freedesktop.Sdk
 command: corsix-th
 rename-icon: corsix-th
 finish-args:
-  - --socket=wayland
-  - --socket=fallback-x11
+  - --socket=x11
   # XShm access
   - --share=ipc
   # Pulseaudio access
@@ -24,11 +23,16 @@ modules:
   - name: CorsixTH
     buildsystem: cmake
     builddir: true
+    build-options:
+      env:
+        # Force CMake to use bundled FFmpeg
+        CMAKE_LIBRARY_PATH: /app/lib
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.66
-        commit: 430bd52a2ce274d37e3550c17cfe3985363cfee5
+        tag: v0.67-beta1
+        commit: 6a5904bfec7183eb7bfb6f73d5ca70df428bf3c7
+
     modules:
       - name: Lua
         buildsystem: simple
@@ -36,8 +40,8 @@ modules:
           - make linux install INSTALL_TOP=${FLATPAK_DEST}
         sources:
           - type: archive
-            url: https://www.lua.org/ftp/lua-5.4.4.tar.gz
-            sha256: 164c7849653b80ae67bec4b7473b884bf5cc8d2dca05653475ec2ed27b9ebf61
+            url: https://www.lua.org/ftp/lua-5.4.6.tar.gz
+            sha256: 7d5ea1b9cb6aa0b59ca3dde1c6adcb57ef83a1ba8e5432c0ecd06bf439b3ad88
           - type: patch
             path: lua-so.patch
         cleanup:
@@ -97,31 +101,11 @@ modules:
         sources:
           - type: git
             url: https://git.ffmpeg.org/ffmpeg.git
-            tag: n4.4.2
-            commit: d61977cbe453869cec28d32b71fe25c2cd965dcf
+            tag: n6.0
+            commit: ea3d24bbe3c58b171e55fe2151fc7ffaca3ab3d2
         cleanup:
           - /bin/ff*
           - /share/ffmpeg
-
-      - name: SDL2
-        buildsystem: autotools
-        sources:
-          - type: git
-            url: https://github.com/libsdl-org/SDL.git
-            tag: release-2.0.22
-            commit: 53dea9830964eee8b5c2a7ee0a65d6e268dc78a1
-        cleanup:
-          - /bin/sdl2*
-        modules:
-          - name: libdecor
-            buildsystem: meson
-            config-opts:
-              - -Ddemo=false
-            sources:
-              - type: git
-                url: https://gitlab.gnome.org/jadahl/libdecor.git
-                tag: 0.1.0
-                commit: 3ec3fadd59a21835079fbb3046d2bec6c649d6fa
 
 cleanup:
   - /include
