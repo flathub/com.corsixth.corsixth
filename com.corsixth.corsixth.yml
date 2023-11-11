@@ -117,8 +117,8 @@ modules:
         sources:
           - type: git
             url: https://git.ffmpeg.org/ffmpeg.git
-            tag: n6.0
-            commit: ea3d24bbe3c58b171e55fe2151fc7ffaca3ab3d2
+            tag: n6.1
+            commit: d4ff0020b40b524a490cf62eccbd3a318f4c0e58
             x-checker-data:
               type: git
               tag-pattern: ^n([\d\.]+)$
