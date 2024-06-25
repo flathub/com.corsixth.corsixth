@@ -42,8 +42,8 @@ modules:
           - make linux install INSTALL_TOP=${FLATPAK_DEST}
         sources:
           - type: archive
-            url: https://www.lua.org/ftp/lua-5.4.6.tar.gz
-            sha256: 7d5ea1b9cb6aa0b59ca3dde1c6adcb57ef83a1ba8e5432c0ecd06bf439b3ad88
+            url: https://www.lua.org/ftp/lua-5.4.7.tar.gz
+            sha256: 9fbf5e28ef86c69858f6d3d34eccc32e911c1a28b4120ff3e84aaa70cfbf1e30
             x-checker-data:
               type: html
               url: https://www.lua.org/download.html
@@ -117,8 +117,8 @@ modules:
         sources:
           - type: git
             url: https://git.ffmpeg.org/ffmpeg.git
-            tag: n6.1.1
-            commit: e38092ef9395d7049f871ef4d5411eb410e283e0
+            tag: n7.0.1
+            commit: af25a4bfd2503caf3ee485b27b99b620302f5718
             x-checker-data:
               type: git
               tag-pattern: ^n([\d\.]+)$
