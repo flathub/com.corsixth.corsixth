@@ -1,6 +1,6 @@
 app-id: com.corsixth.corsixth
 runtime: org.freedesktop.Platform
-runtime-version: '22.08'
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 command: corsix-th
 rename-icon: corsix-th
@@ -29,8 +29,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.67
-        commit: fc38c4f46913b7b91c0b1b53efd7c7f2764adb20
+        tag: v0.68.0
+        commit: 22bcc3ac9615e5ee79bcc6cf9949333ce576d150
         x-checker-data:
           type: git
           tag-pattern: ^v([\d\.]+)$
@@ -42,8 +42,8 @@ modules:
           - make linux install INSTALL_TOP=${FLATPAK_DEST}
         sources:
           - type: archive
-            url: https://www.lua.org/ftp/lua-5.4.6.tar.gz
-            sha256: 7d5ea1b9cb6aa0b59ca3dde1c6adcb57ef83a1ba8e5432c0ecd06bf439b3ad88
+            url: https://www.lua.org/ftp/lua-5.4.7.tar.gz
+            sha256: 9fbf5e28ef86c69858f6d3d34eccc32e911c1a28b4120ff3e84aaa70cfbf1e30
             x-checker-data:
               type: html
               url: https://www.lua.org/download.html
@@ -117,8 +117,8 @@ modules:
         sources:
           - type: git
             url: https://git.ffmpeg.org/ffmpeg.git
-            tag: n6.1.1
-            commit: e38092ef9395d7049f871ef4d5411eb410e283e0
+            tag: n7.0.2
+            commit: e3a61e91030696348b56361bdf80ea358aef4a19
             x-checker-data:
               type: git
               tag-pattern: ^n([\d\.]+)$
