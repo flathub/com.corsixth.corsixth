@@ -21,7 +21,7 @@ finish-args:
 
 modules:
   - name: CorsixTH
-    buildsystem: cmake
+    buildsystem: cmake-ninja
     builddir: true
     build-options:
       env:
