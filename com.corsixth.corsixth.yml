@@ -87,21 +87,36 @@ modules:
               version-pattern: www.inf.puc-rio.br/~roberto/lpeg/lpeg-([\d\.]+).tar.gz
               url-template: https://www.inf.puc-rio.br/~roberto/lpeg/lpeg-$version.tar.gz
 
-      - name: freepats
-        buildsystem: simple
-        build-commands:
-          - install -d $FLATPAK_DEST/share/freepats/{Drum,Tone}_000
-          - install -m644 Drum_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Drum_000
-          - install -m644 Tone_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Tone_000
-          - install -m644 crude.cfg $FLATPAK_DEST/share/freepats/freepats.cfg
-          - install -d $FLATPAK_DEST/share/timidity
-          - install -m644 timidity.cfg $FLATPAK_DEST/share/timidity/timidity.cfg
+      - name: sdl2-mixer
+        buildsystem: cmake-ninja
+        builddir: true
+        config-opts:
+          - -DSDL2MIXER_MIDI=ON
+          - -DSDL2MIXER_MOD=OFF
         sources:
-          - type: archive
-            url: https://freepats.zenvoid.org/freepats-20060219.tar.xz
-            sha256: 500c61782ff4b22de6887c0a32e68dd98b511c4396ddf89e8cab482c7dcea89e
-          - type: file
-            path: timidity.cfg
+          - type: git
+            url: https://github.com/libsdl-org/SDL_mixer.git
+            tag: release-2.8.0
+            commit: a37e09f85d321a13dfcf0d4432827ee09beeb623
+            x-checker-data:
+              type: git
+              tag-pattern: ^release-2.([\d\.]+)$
+        modules:
+          - shared-modules/linux-audio/fluidsynth2.json
+          - name: freepats
+            buildsystem: simple
+            build-commands:
+              - install -d $FLATPAK_DEST/share/freepats/{Drum,Tone}_000
+              - install -m644 Drum_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Drum_000
+              - install -m644 Tone_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Tone_000
+              - install -m644 crude.cfg $FLATPAK_DEST/share/freepats/freepats.cfg
+              - install -D -m644 timidity.cfg $FLATPAK_DEST/share/timidity/timidity.cfg
+            sources:
+              - type: archive
+                url: https://freepats.zenvoid.org/freepats-20060219.tar.xz
+                sha256: 500c61782ff4b22de6887c0a32e68dd98b511c4396ddf89e8cab482c7dcea89e
+              - type: file
+                path: timidity.cfg
 
       - name: ffmpeg
         buildsystem: autotools
