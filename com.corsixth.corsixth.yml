@@ -1,6 +1,6 @@
 app-id: com.corsixth.corsixth
 runtime: org.freedesktop.Platform
-runtime-version: '22.08'
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 command: corsix-th
 rename-icon: corsix-th
@@ -21,7 +21,7 @@ finish-args:
 
 modules:
   - name: CorsixTH
-    buildsystem: cmake
+    buildsystem: cmake-ninja
     builddir: true
     build-options:
       env:
@@ -29,30 +29,15 @@ modules:
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.67
-        commit: fc38c4f46913b7b91c0b1b53efd7c7f2764adb20
+        tag: v0.68.0
+        commit: 22bcc3ac9615e5ee79bcc6cf9949333ce576d150
         x-checker-data:
           type: git
           tag-pattern: ^v([\d\.]+)$
+          is-main-source: true
 
     modules:
-      - name: Lua
-        buildsystem: simple
-        build-commands:
-          - make linux install INSTALL_TOP=${FLATPAK_DEST}
-        sources:
-          - type: archive
-            url: https://www.lua.org/ftp/lua-5.4.6.tar.gz
-            sha256: 7d5ea1b9cb6aa0b59ca3dde1c6adcb57ef83a1ba8e5432c0ecd06bf439b3ad88
-            x-checker-data:
-              type: html
-              url: https://www.lua.org/download.html
-              version-pattern: lua-([\d\.]+).tar.gz
-              url-template: https://www.lua.org/ftp/lua-$version.tar.gz
-          - type: patch
-            path: lua-so.patch
-        cleanup:
-          - /bin/lua*
+      - shared-modules/lua5.4/lua-5.4.json
 
       - name: LuaFileSystem
         buildsystem: simple
@@ -86,21 +71,36 @@ modules:
               version-pattern: www.inf.puc-rio.br/~roberto/lpeg/lpeg-([\d\.]+).tar.gz
               url-template: https://www.inf.puc-rio.br/~roberto/lpeg/lpeg-$version.tar.gz
 
-      - name: freepats
-        buildsystem: simple
-        build-commands:
-          - install -d $FLATPAK_DEST/share/freepats/{Drum,Tone}_000
-          - install -m644 Drum_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Drum_000
-          - install -m644 Tone_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Tone_000
-          - install -m644 crude.cfg $FLATPAK_DEST/share/freepats/freepats.cfg
-          - install -d $FLATPAK_DEST/share/timidity
-          - install -m644 timidity.cfg $FLATPAK_DEST/share/timidity/timidity.cfg
+      - name: sdl2-mixer
+        buildsystem: cmake-ninja
+        builddir: true
+        config-opts:
+          - -DSDL2MIXER_MIDI=ON
+          - -DSDL2MIXER_MOD=OFF
         sources:
-          - type: archive
-            url: https://freepats.zenvoid.org/freepats-20060219.tar.xz
-            sha256: 500c61782ff4b22de6887c0a32e68dd98b511c4396ddf89e8cab482c7dcea89e
-          - type: file
-            path: timidity.cfg
+          - type: git
+            url: https://github.com/libsdl-org/SDL_mixer.git
+            tag: release-2.8.0
+            commit: a37e09f85d321a13dfcf0d4432827ee09beeb623
+            x-checker-data:
+              type: git
+              tag-pattern: ^release-2.([\d\.]+)$
+        modules:
+          - shared-modules/linux-audio/fluidsynth2.json
+          - name: freepats
+            buildsystem: simple
+            build-commands:
+              - install -d $FLATPAK_DEST/share/freepats/{Drum,Tone}_000
+              - install -m644 Drum_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Drum_000
+              - install -m644 Tone_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Tone_000
+              - install -m644 crude.cfg $FLATPAK_DEST/share/freepats/freepats.cfg
+              - install -D -m644 timidity.cfg $FLATPAK_DEST/share/timidity/timidity.cfg
+            sources:
+              - type: archive
+                url: https://freepats.zenvoid.org/freepats-20060219.tar.xz
+                sha256: 500c61782ff4b22de6887c0a32e68dd98b511c4396ddf89e8cab482c7dcea89e
+              - type: file
+                path: timidity.cfg
 
       - name: ffmpeg
         buildsystem: autotools
@@ -117,8 +117,8 @@ modules:
         sources:
           - type: git
             url: https://git.ffmpeg.org/ffmpeg.git
-            tag: n6.1.1
-            commit: e38092ef9395d7049f871ef4d5411eb410e283e0
+            tag: n7.0.2
+            commit: e3a61e91030696348b56361bdf80ea358aef4a19
             x-checker-data:
               type: git
               tag-pattern: ^n([\d\.]+)$
