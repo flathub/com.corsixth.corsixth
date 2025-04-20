@@ -16,8 +16,8 @@ finish-args:
   - --device=dri
   # Lua modules
   - --env=LUA_CPATH=./?.so;/app/lib/lua/5.4/?.so;/app/share/lua/5.4/?.so
-  # Tell SDL_mixer where to find Timidity config
-  - --env=TIMIDITY_CFG=/app/share/timidity/timidity.cfg
+  # Tell SDL_mixer where to find the FluidSynth soundfont
+  - --env=SDL_SOUNDFONTS=/app/share/soundfonts/FluidR3_GM.sf2
 
 modules:
   - name: CorsixTH
@@ -87,20 +87,14 @@ modules:
               tag-pattern: ^release-2.([\d\.]+)$
         modules:
           - shared-modules/linux-audio/fluidsynth2.json
-          - name: freepats
+          - name: fluidr3-soundfont
             buildsystem: simple
             build-commands:
-              - install -d $FLATPAK_DEST/share/freepats/{Drum,Tone}_000
-              - install -m644 Drum_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Drum_000
-              - install -m644 Tone_000/*.{pat,txt} $FLATPAK_DEST/share/freepats/Tone_000
-              - install -m644 crude.cfg $FLATPAK_DEST/share/freepats/freepats.cfg
-              - install -D -m644 timidity.cfg $FLATPAK_DEST/share/timidity/timidity.cfg
+              - install -D -m644 FluidR3_GM.sf2 $FLATPAK_DEST/share/soundfonts/FluidR3_GM.sf2
             sources:
-              - type: archive
-                url: https://freepats.zenvoid.org/freepats-20060219.tar.xz
-                sha256: 500c61782ff4b22de6887c0a32e68dd98b511c4396ddf89e8cab482c7dcea89e
               - type: file
-                path: timidity.cfg
+                url: https://sources.debian.org/src/fluid-soundfont/3.1-5.3/FluidR3_GM.sf2
+                sha256: 74594e8f4250680adf590507a306655a299935343583256f3b722c48a1bc1cb0
 
       - name: ffmpeg
         buildsystem: autotools
