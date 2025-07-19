@@ -35,6 +35,8 @@ modules:
           type: git
           tag-pattern: ^v([\d\.]+)$
           is-main-source: true
+      - type: patch
+        path: metainfo-html-entities.patch
 
     modules:
       - shared-modules/lua5.4/lua-5.4.json
