@@ -29,8 +29,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.68.0
-        commit: 22bcc3ac9615e5ee79bcc6cf9949333ce576d150
+        tag: v0.69.0
+        commit: b2ce950af466fcf78ce765759e60071d78b96698
         x-checker-data:
           type: git
           tag-pattern: ^v([\d\.]+)$
@@ -80,8 +80,8 @@ modules:
         sources:
           - type: git
             url: https://github.com/libsdl-org/SDL_mixer.git
-            tag: release-2.8.0
-            commit: a37e09f85d321a13dfcf0d4432827ee09beeb623
+            tag: release-2.8.1
+            commit: 171eb2d420d5643e4ee11514a06e04a41a463bbd
             x-checker-data:
               type: git
               tag-pattern: ^release-2.([\d\.]+)$
@@ -111,8 +111,8 @@ modules:
         sources:
           - type: git
             url: https://git.ffmpeg.org/ffmpeg.git
-            tag: n7.0.2
-            commit: e3a61e91030696348b56361bdf80ea358aef4a19
+            tag: n7.1.1
+            commit: db69d06eeeab4f46da15030a80d539efb4503ca8
             x-checker-data:
               type: git
               tag-pattern: ^n([\d\.]+)$
