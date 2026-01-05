@@ -29,8 +29,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.69.1
-        commit: 5c4e06397a1594e4c94c52533541608e6802208b
+        tag: v0.69.2
+        commit: ef814ba33fd704984dec825d1db903fcbafb2556
         x-checker-data:
           type: git
           tag-pattern: ^v([\d\.]+)$
@@ -49,8 +49,8 @@ modules:
         sources:
           - type: git
             url: https://github.com/keplerproject/luafilesystem.git
-            tag: v1_8_0
-            commit: 7c6e1b013caec0602ca4796df3b1d7253a2dd258
+            tag: v1_9_0
+            commit: a186cca5833691e830ed255e38ace8ff6b870dbf
             x-checker-data:
               type: git
               tag-pattern: ^v[^_]([\d_]+)$
@@ -111,8 +111,8 @@ modules:
         sources:
           - type: git
             url: https://git.ffmpeg.org/ffmpeg.git
-            tag: n7.1.1
-            commit: db69d06eeeab4f46da15030a80d539efb4503ca8
+            tag: n8.0.1
+            commit: 894da5ca7d742e4429ffb2af534fcda0103ef593
             x-checker-data:
               type: git
               tag-pattern: ^n([\d\.]+)$
