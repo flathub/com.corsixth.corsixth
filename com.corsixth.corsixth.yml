@@ -1,6 +1,6 @@
 app-id: com.corsixth.corsixth
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 command: corsix-th
 rename-icon: corsix-th
@@ -18,6 +18,15 @@ finish-args:
   - --env=LUA_CPATH=./?.so;/app/lib/lua/5.4/?.so;/app/share/lua/5.4/?.so
   # Tell SDL_mixer where to find the FluidSynth soundfont
   - --env=SDL_SOUNDFONTS=/app/share/soundfonts/FluidR3_GM.sf2
+
+cleanup:
+  - /include
+  - /lib/pkgconfig
+  - /lib/cmake
+  - /man
+  - /share/man
+  - '*.a'
+  - '*.la'
 
 modules:
   - name: CorsixTH
@@ -80,8 +89,8 @@ modules:
         sources:
           - type: git
             url: https://github.com/libsdl-org/SDL_mixer.git
-            tag: release-2.8.1
-            commit: 171eb2d420d5643e4ee11514a06e04a41a463bbd
+            tag: release-2.8.2
+            commit: b208916aed9250fe434360e6c6a95f0697bb7b01
             x-checker-data:
               type: git
               tag-pattern: ^release-2.([\d\.]+)$
@@ -94,6 +103,8 @@ modules:
             sources:
               - type: file
                 url: https://sources.debian.org/src/fluid-soundfont/3.1-5.3/FluidR3_GM.sf2
+                mirror-urls:
+                  - https://github.com/pianobooster/fluid-soundfont/releases/download/v3.1/FluidR3_GM.sf2
                 sha256: 74594e8f4250680adf590507a306655a299935343583256f3b722c48a1bc1cb0
 
       - name: ffmpeg
@@ -108,23 +119,14 @@ modules:
           - --enable-decoder=smackaud
           - --enable-demuxer=smacker
           - --enable-protocol=file
-        sources:
-          - type: git
-            url: https://git.ffmpeg.org/ffmpeg.git
-            tag: n8.0.1
-            commit: 894da5ca7d742e4429ffb2af534fcda0103ef593
-            x-checker-data:
-              type: git
-              tag-pattern: ^n([\d\.]+)$
         cleanup:
           - /bin/ff*
           - /share/ffmpeg
-
-cleanup:
-  - /include
-  - /lib/pkgconfig
-  - /lib/cmake
-  - /man
-  - /share/man
-  - '*.a'
-  - '*.la'
+        sources:
+          - type: git
+            url: https://git.ffmpeg.org/ffmpeg.git
+            tag: n8.1.1
+            commit: 239f2c733de417201d7ad3b3b8b0d9b63285b2b1
+            x-checker-data:
+              type: git
+              tag-pattern: ^n([\d\.]+)$
