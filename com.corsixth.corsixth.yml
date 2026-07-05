@@ -38,8 +38,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.69.2
-        commit: ef814ba33fd704984dec825d1db903fcbafb2556
+        tag: v0.70.0
+        commit: 03cde9750956b3f8bb0087bf6e2afbc7c599a82c
         x-checker-data:
           type: git
           tag-pattern: ^v([\d\.]+)$
@@ -125,8 +125,8 @@ modules:
         sources:
           - type: git
             url: https://git.ffmpeg.org/ffmpeg.git
-            tag: n8.1.1
-            commit: 239f2c733de417201d7ad3b3b8b0d9b63285b2b1
+            tag: n8.1.2
+            commit: 38b88335f99e76ed89ff3c93f877fdefce736c13
             x-checker-data:
               type: git
               tag-pattern: ^n([\d\.]+)$
