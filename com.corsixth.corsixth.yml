@@ -37,6 +37,7 @@ modules:
         CMAKE_LIBRARY_PATH: /app/lib
     config-opts:
       - -DWITH_UPDATE_CHECK=OFF
+      - -DWITH_FONT=/app/share/fonts/CorsixTHUnicode.ttf
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
@@ -119,6 +120,15 @@ modules:
             x-checker-data:
               type: git
               tag-pattern: ^([\d\.]+)$
+
+      - name: gonoto-font
+        buildsystem: simple
+        build-commands:
+          - install -D -m644 GoNotoKurrent-Regular.ttf $FLATPAK_DEST/share/fonts/CorsixTHUnicode.ttf
+        sources:
+          - type: file
+            url: https://github.com/satbyy/go-noto-universal/releases/download/v7.0/GoNotoKurrent-Regular.ttf
+            sha256: 2f2cee5fbb2403df352ca2005247f6c4faa70f3086ebd31b6c62308b5f2f9865
 
       - name: ffmpeg
         buildsystem: autotools
