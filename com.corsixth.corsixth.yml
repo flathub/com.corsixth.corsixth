@@ -5,7 +5,8 @@ sdk: org.freedesktop.Sdk
 command: corsix-th
 rename-icon: corsix-th
 finish-args:
-  - --socket=x11
+  - --socket=wayland
+  - --socket=fallback-x11
   # XShm access
   - --share=ipc
   # Pulseaudio access
