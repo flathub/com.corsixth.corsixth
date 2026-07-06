@@ -35,6 +35,8 @@ modules:
     build-options:
       env:
         CMAKE_LIBRARY_PATH: /app/lib
+    config-opts:
+      - -DWITH_UPDATE_CHECK=OFF
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
