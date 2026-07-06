@@ -17,7 +17,7 @@ finish-args:
   # Lua modules
   - --env=LUA_CPATH=./?.so;/app/lib/lua/5.4/?.so;/app/share/lua/5.4/?.so
   # Tell SDL_mixer where to find the FluidSynth soundfont
-  - --env=SDL_SOUNDFONTS=/app/share/soundfonts/FluidR3_GM.sf2
+  - --env=SDL_SOUNDFONTS=/app/share/soundfonts/FluidR3.sf3
 
 cleanup:
   - /include
@@ -102,13 +102,11 @@ modules:
           - name: fluidr3-soundfont
             buildsystem: simple
             build-commands:
-              - install -D -m644 FluidR3_GM.sf2 $FLATPAK_DEST/share/soundfonts/FluidR3_GM.sf2
+              - install -D -m644 FluidR3.sf3 $FLATPAK_DEST/share/soundfonts/FluidR3.sf3
             sources:
               - type: file
-                url: https://sources.debian.org/src/fluid-soundfont/3.1-5.3/FluidR3_GM.sf2
-                mirror-urls:
-                  - https://github.com/pianobooster/fluid-soundfont/releases/download/v3.1/FluidR3_GM.sf2
-                sha256: 74594e8f4250680adf590507a306655a299935343583256f3b722c48a1bc1cb0
+                url: https://raw.githubusercontent.com/Jacalz/fluid-soundfont/master/SF3/FluidR3.sf3
+                sha256: 32039e039c2f708467a6f171fbfd9fecdcadfe40a2327837c391490c8de70021
 
       - name: rtmidi
         buildsystem: cmake-ninja
