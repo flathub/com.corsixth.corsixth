@@ -107,6 +107,17 @@ modules:
                   - https://github.com/pianobooster/fluid-soundfont/releases/download/v3.1/FluidR3_GM.sf2
                 sha256: 74594e8f4250680adf590507a306655a299935343583256f3b722c48a1bc1cb0
 
+      - name: rtmidi
+        buildsystem: cmake-ninja
+        sources:
+          - type: git
+            url: https://github.com/thestk/rtmidi.git
+            tag: 6.0.0
+            commit: 1e5b49925aa60065db52de44c366d446a902547b
+            x-checker-data:
+              type: git
+              tag-pattern: ^([\d\.]+)$
+
       - name: ffmpeg
         buildsystem: autotools
         config-opts:
