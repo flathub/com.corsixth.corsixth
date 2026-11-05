@@ -42,8 +42,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/CorsixTH/CorsixTH.git
-        tag: v0.70.1
-        commit: 56bd5d00f76331c7f76d7b696726a7926303ca0c
+        tag: v0.70.2
+        commit: 7e84444cb0406bb04466dd5880303cd40d21d63c
         x-checker-data:
           type: git
           tag-pattern: ^v([\d\.]+)$
@@ -114,8 +114,8 @@ modules:
         sources:
           - type: git
             url: https://github.com/thestk/rtmidi.git
-            tag: 6.0.0
-            commit: 1e5b49925aa60065db52de44c366d446a902547b
+            tag: 6.1.0
+            commit: 7e31b5bfcc9350058fbaf81d62a8eb39dd29c5f7
             x-checker-data:
               type: git
               tag-pattern: ^([\d\.]+)$
@@ -147,8 +147,8 @@ modules:
         sources:
           - type: git
             url: https://git.ffmpeg.org/ffmpeg.git
-            tag: n9.0.1
-            commit: bf1b838f2ab88b4f8fd83443325c782ea0e0f7fa
+            tag: n9.0.2
+            commit: 946fcce07b6dcd0331c8cc609192aeff5e1924f8
             x-checker-data:
               type: git
               tag-pattern: ^n([\d\.]+)$
