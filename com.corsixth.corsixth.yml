@@ -1,6 +1,6 @@
 app-id: com.corsixth.corsixth
 runtime: org.freedesktop.Platform
-runtime-version: '25.08'
+runtime-version: "26.08"
 sdk: org.freedesktop.Sdk
 command: corsix-th
 rename-icon: corsix-th
@@ -26,8 +26,8 @@ cleanup:
   - /lib/cmake
   - /man
   - /share/man
-  - '*.a'
-  - '*.la'
+  - "*.a"
+  - "*.la"
 
 modules:
   - name: CorsixTH
